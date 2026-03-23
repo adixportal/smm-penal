@@ -1,35 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login - SMM Panel</title>
+  <title>SMM Panel Login</title>
+
   <style>
     body {
-      font-family: Arial;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+    }
+
+    .box {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      width: 300px;
       text-align: center;
-      margin-top: 100px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
     input {
-      display: block;
-      margin: 10px auto;
+      width: 100%;
       padding: 10px;
-      width: 200px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: 0.3s;
     }
+
+    input:focus {
+      border-color: #2a5298;
+      box-shadow: 0 0 5px #2a5298;
+    }
+
     button {
-      padding: 10px 20px;
-      margin: 5px;
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #2a5298;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #1e3c72;
+    }
+
+    .signup {
+      background: #28a745;
+    }
+
+    .signup:hover {
+      background: #1e7e34;
+    }
+
+    p {
+      margin-top: 15px;
+      font-size: 13px;
+      color: gray;
     }
   </style>
 </head>
 
 <body>
 
-<h2>SMM Panel Login</h2>
+<div class="box">
+  <h2>SMM Panel 🔥</h2>
 
-<input type="email" id="email" placeholder="Enter Email">
-<input type="password" id="password" placeholder="Enter Password">
+  <input type="email" id="email" placeholder="Enter Email">
+  <input type="password" id="password" placeholder="Enter Password">
 
-<button onclick="signup()">Signup</button>
-<button onclick="login()">Login</button>
+  <button onclick="login()">Login</button>
+  <button class="signup" onclick="signup()">Signup</button>
+
+  <p>Secure Login System 🔐</p>
+</div>
 
 <!-- Firebase JS -->
 <script type="module" src="firebase.js"></script>
