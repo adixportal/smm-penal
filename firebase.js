@@ -11,29 +11,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Signup
-window.signup = function() {
+window.signup = function(){
   let email = document.getElementById("email").value;
-  let password = document.getElementById("password").value;
+  let pass = document.getElementById("password").value;
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      alert("Signup Success ✅");
-    })
-    .catch(err => alert(err.message));
+  createUserWithEmailAndPassword(auth, email, pass)
+    .then(()=>alert("Signup Success"))
+    .catch(e=>alert(e.message));
 }
 
-// Login
-window.login = function() {
+window.login = function(){
   let email = document.getElementById("email").value;
-  let password = document.getElementById("password").value;
+  let pass = document.getElementById("password").value;
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      alert("Login Success 🚀");
-
-      // 🔥 Redirect FIX
-      window.location.href = "dashboard.html";
-    })
-    .catch(err => alert(err.message));
+  signInWithEmailAndPassword(auth, email, pass)
+    .then(()=> window.location.href="dashboard.html")
+    .catch(e=>alert(e.message));
 }
