@@ -71,11 +71,33 @@ body {
 
 .section {display:none;}
 
+input {
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+
+button.action {
+  padding:10px;
+  background:#2563eb;
+  color:white;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button.action:hover {
+  background:#1e40af;
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
   <h2>SMM PANEL</h2>
 
@@ -85,6 +107,7 @@ body {
   <button onclick="logout()">Logout</button>
 </div>
 
+<!-- MAIN -->
 <div class="main">
 
   <div class="topbar">
@@ -102,16 +125,16 @@ body {
 
   <div id="services" class="section">
     <div class="card">
-      Instagram Followers - ₹100<br>
+      Instagram Followers - ₹100<br><br>
       Instagram Likes - ₹50
     </div>
   </div>
 
   <div id="order" class="section">
     <div class="card">
-      <input placeholder="Enter link"><br><br>
-      <input placeholder="Quantity"><br><br>
-      <button>Place Order</button>
+      <input placeholder="Enter link"><br>
+      <input placeholder="Quantity"><br>
+      <button class="action">Place Order</button>
     </div>
   </div>
 
@@ -136,14 +159,17 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// section
+// 🔥 BASE PATH FIX (NO 404 EVER)
+const BASE = window.location.pathname.includes('/smm-p') ? '/smm-p/' : '/';
+
+// SECTION SWITCH
 window.show = function(id){
   document.querySelectorAll(".section").forEach(s=>s.style.display="none");
   document.getElementById(id).style.display="block";
 }
 show("home");
 
-// user
+// 🔐 USER CHECK
 onAuthStateChanged(auth, async(user)=>{
   if(user){
     let ref = doc(db,"users",user.uid);
@@ -152,18 +178,21 @@ onAuthStateChanged(auth, async(user)=>{
     if(snap.exists()){
       document.getElementById("balance").innerText = snap.data().balance;
     }else{
-      await setDoc(ref,{email:user.email,balance:1000});
+      await setDoc(ref,{
+        email:user.email,
+        balance:1000
+      });
       document.getElementById("balance").innerText = 1000;
     }
   }else{
-    window.location.href="index.html";
+    window.location.href = BASE + "index.html";
   }
 });
 
-// logout
+// 🚪 LOGOUT (FIXED)
 window.logout = function(){
   signOut(auth).then(()=>{
-    window.location.href="index.html";
+    window.location.href = BASE + "index.html";
   });
 }
 
