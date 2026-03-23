@@ -6,7 +6,7 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI';
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -23,24 +23,12 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 
-    h2 {
-      margin-bottom: 20px;
-      color: #333;
-    }
-
     input {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
-      border: 1px solid #ccc;
       border-radius: 8px;
-      outline: none;
-      transition: 0.3s;
-    }
-
-    input:focus {
-      border-color: #2a5298;
-      box-shadow: 0 0 5px #2a5298;
+      border: 1px solid #ccc;
     }
 
     button {
@@ -51,27 +39,11 @@
       border-radius: 8px;
       background: #2a5298;
       color: white;
-      font-size: 16px;
       cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #1e3c72;
     }
 
     .signup {
       background: #28a745;
-    }
-
-    .signup:hover {
-      background: #1e7e34;
-    }
-
-    p {
-      margin-top: 15px;
-      font-size: 13px;
-      color: gray;
     }
   </style>
 </head>
@@ -81,16 +53,13 @@
 <div class="box">
   <h2>SMM Panel 🔥</h2>
 
-  <input type="email" id="email" placeholder="Enter Email">
-  <input type="password" id="password" placeholder="Enter Password">
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
 
   <button onclick="login()">Login</button>
   <button class="signup" onclick="signup()">Signup</button>
-
-  <p>Secure Login System 🔐</p>
 </div>
 
-<!-- Firebase JS -->
 <script type="module" src="firebase.js"></script>
 
 </body>
