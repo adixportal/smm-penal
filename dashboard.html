@@ -1,19 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dashboard</title>
+  <title>SMM Panel</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI';
+      display: flex;
+      background: #f4f6f9;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #1e1e2f;
+      color: white;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+    }
+
+    .sidebar button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      background: #2a2a40;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .sidebar button:hover {
+      background: #4a4a6a;
+    }
+
+    .main {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .section {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
 
-<h2>Welcome to Dashboard 🎉</h2>
+<div class="sidebar">
+  <h2>SMM Panel</h2>
 
-<button onclick="logout()">Logout</button>
+  <button onclick="showSection('home')">Dashboard</button>
+  <button onclick="showSection('services')">Services</button>
+  <button onclick="showSection('order')">Order</button>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<div class="main">
+
+  <div id="home" class="section">
+    <div class="card">
+      <h2>Welcome 🎉</h2>
+      <h3>Balance: ₹<span id="balance">Loading...</span></h3>
+    </div>
+  </div>
+
+  <div id="services" class="section">
+    <div class="card">
+      <h2>Services</h2>
+      <p>Instagram Followers - ₹100</p>
+      <p>Instagram Likes - ₹50</p>
+    </div>
+  </div>
+
+  <div id="order" class="section">
+    <div class="card">
+      <h2>Order</h2>
+      <input placeholder="Enter link"><br><br>
+      <input placeholder="Quantity"><br><br>
+      <button>Place Order</button>
+    </div>
+  </div>
+
+</div>
 
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-import { getAuth, signOut, onAuthStateChanged } 
+import { getAuth, onAuthStateChanged, signOut } 
 from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import { getFirestore, doc, getDoc, setDoc } 
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDpA9ZGfWyWVsY1PsYL19dOf_CZsjPDUoM",
@@ -23,10 +113,32 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-// Check login
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
+// Section switch
+window.showSection = function(id) {
+  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
+  document.getElementById(id).style.display = "block";
+}
+
+showSection("home");
+
+// Firebase user check
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    const ref = doc(db, "users", user.uid);
+    const snap = await getDoc(ref);
+
+    if (snap.exists()) {
+      document.getElementById("balance").innerText = snap.data().balance;
+    } else {
+      await setDoc(ref, {
+        email: user.email,
+        balance: 1000
+      });
+      document.getElementById("balance").innerText = 1000;
+    }
+  } else {
     window.location.href = "login.html";
   }
 });
@@ -37,6 +149,7 @@ window.logout = function() {
     window.location.href = "login.html";
   });
 }
+
 </script>
 
 </body>
