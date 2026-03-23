@@ -185,14 +185,14 @@ onAuthStateChanged(auth, async(user)=>{
       document.getElementById("balance").innerText = 1000;
     }
   }else{
-    window.location.href = BASE + "index.html";
+    window.location.href = "index.html";
   }
 });
 
 // 🚪 LOGOUT (FIXED)
 window.logout = function(){
   signOut(auth).then(()=>{
-    window.location.href = BASE + "index.html";
+    window.location.href = "index.html";
   });
 }
 
