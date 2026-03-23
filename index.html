@@ -4,116 +4,99 @@
 <title>SMM Panel</title>
 
 <style>
-body {
+body{
   margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background:#f1f5f9;
+  font-family:'Segoe UI';
+  background:#f4f7fb;
 }
 
 /* NAVBAR */
-.navbar {
+.nav{
   display:flex;
   justify-content:space-between;
   padding:15px 40px;
   background:white;
-  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  border-bottom:1px solid #eee;
 }
 
-.logo {
-  font-weight:bold;
-  font-size:18px;
+.logo{
+  font-weight:600;
 }
 
-.nav-links a {
+.nav a{
   margin-left:20px;
-  text-decoration:none;
   color:#2563eb;
+  text-decoration:none;
 }
 
 /* CENTER */
-.container {
+.main{
   display:flex;
   justify-content:center;
   align-items:center;
   height:85vh;
 }
 
-/* BOX */
-.box {
-  width:360px;
+/* CARD */
+.card{
+  width:380px;
   background:white;
   padding:30px;
   border-radius:12px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-.box h2 {
+.card h2{
   margin-bottom:20px;
 }
 
-input {
+/* INPUT */
+input{
   width:100%;
   padding:12px;
   margin:10px 0;
-  border-radius:8px;
   border:1px solid #ddd;
+  border-radius:8px;
 }
 
-/* OPTIONS */
-.options {
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-}
-
-button {
+/* BUTTON */
+.btn{
   width:100%;
   padding:12px;
-  margin-top:10px;
   border:none;
   border-radius:8px;
-  background:#2563eb;
-  color:white;
+  margin-top:10px;
   cursor:pointer;
 }
 
-.signup {
-  background:#16a34a;
-}
-
-.google {
-  background:#ea4335;
-}
+.login{background:#2563eb;color:white;}
+.signup{background:#16a34a;color:white;}
+.google{background:#ea4335;color:white;}
 
 </style>
 </head>
 
 <body>
 
-<div class="navbar">
+<div class="nav">
   <div class="logo">🚀 SMM PANEL</div>
-  <div class="nav-links">
+  <div>
     <a href="#">Login</a>
     <a href="#">Register</a>
   </div>
 </div>
 
-<div class="container">
-  <div class="box">
+<div class="main">
+  <div class="card">
 
-    <h2>Sign in</h2>
+    <h2>Welcome Back</h2>
 
     <input id="email" placeholder="Email">
     <input id="password" type="password" placeholder="Password">
 
-    <div class="options">
-      <span>Remember</span>
-      <span>Forgot?</span>
-    </div>
-
-    <button onclick="login()">Login</button>
-    <button class="signup" onclick="signup()">Register</button>
-    <button class="google" onclick="googleLogin()">Login with Google</button>
+    <button class="btn login" onclick="login()">Login</button>
+    <button class="btn signup" onclick="signup()">Register</button>
+    <button class="btn google" onclick="googleLogin()">Google Login</button>
 
   </div>
 </div>
