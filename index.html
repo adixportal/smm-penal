@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login - SMM Panel</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 100px;
+    }
+    input {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      width: 200px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>SMM Panel Login</h2>
+
+<input type="email" id="email" placeholder="Enter Email">
+<input type="password" id="password" placeholder="Enter Password">
+
+<button onclick="signup()">Signup</button>
+<button onclick="login()">Login</button>
+
+<!-- Firebase JS -->
+<script type="module" src="firebase.js"></script>
+
+</body>
+</html>
