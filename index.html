@@ -5,59 +5,103 @@
 
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI';
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      margin:0;
+      font-family: Arial;
+      display:flex;
+      height:100vh;
+    }
+
+    /* LEFT SIDE */
+    .left {
+      flex:1;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:white;
+      flex-direction:column;
+    }
+
+    .left h1 {
+      font-size:40px;
+    }
+
+    /* RIGHT SIDE */
+    .right {
+      flex:1;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:#f5f6fa;
     }
 
     .box {
-      background: white;
-      padding: 40px;
-      border-radius: 15px;
-      width: 300px;
-      text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      background:white;
+      padding:40px;
+      border-radius:10px;
+      width:300px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.2);
+      text-align:center;
+    }
+
+    .box h2 {
+      margin-bottom:20px;
     }
 
     input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+      width:100%;
+      padding:10px;
+      margin:10px 0;
+      border-radius:6px;
+      border:1px solid #ccc;
     }
 
     button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 8px;
-      background: #2a5298;
-      color: white;
-      cursor: pointer;
+      width:100%;
+      padding:10px;
+      margin-top:10px;
+      border:none;
+      border-radius:6px;
+      background:#40739e;
+      color:white;
+      cursor:pointer;
+    }
+
+    button:hover {
+      background:#273c75;
     }
 
     .signup {
-      background: #28a745;
+      background:#44bd32;
+    }
+
+    .signup:hover {
+      background:#2ecc71;
     }
   </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h2>SMM Panel 🔥</h2>
+<!-- LEFT -->
+<div class="left">
+  <h1>SMM PANEL 🚀</h1>
+  <p>Grow your social media instantly</p>
+</div>
 
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
+<!-- RIGHT -->
+<div class="right">
+  <div class="box">
 
-  <button onclick="login()">Login</button>
-  <button class="signup" onclick="signup()">Signup</button>
+    <h2>Login</h2>
+
+    <input type="email" id="email" placeholder="Enter Email">
+    <input type="password" id="password" placeholder="Enter Password">
+
+    <button onclick="login()">Login</button>
+    <button class="signup" onclick="signup()">Signup</button>
+
+  </div>
 </div>
 
 <script type="module" src="firebase.js"></script>
