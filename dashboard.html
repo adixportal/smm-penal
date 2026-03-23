@@ -1,193 +1,117 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SMM Panel</title>
+<title>SMM Panel</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      background: #eef1f7;
-    }
+<style>
+body {
+  margin:0;
+  font-family:'Segoe UI';
+  display:flex;
+  background:#f1f5f9;
+}
 
-    /* SIDEBAR */
-    .sidebar {
-      width: 230px;
-      background: #111827;
-      color: white;
-      height: 100vh;
-      position: fixed;
-      display: flex;
-      flex-direction: column;
-    }
+/* SIDEBAR */
+.sidebar {
+  width:240px;
+  background:#0f172a;
+  color:white;
+  height:100vh;
+  padding:20px;
+  position:fixed;
+}
 
-    .logo {
-      padding: 20px;
-      font-size: 20px;
-      font-weight: bold;
-      text-align: center;
-      border-bottom: 1px solid #1f2937;
-    }
+.sidebar h2 {
+  text-align:center;
+}
 
-    .menu {
-      padding: 10px;
-    }
+.sidebar button {
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:none;
+  background:#1e293b;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+}
 
-    .menu button {
-      width: 100%;
-      padding: 12px;
-      margin: 5px 0;
-      border: none;
-      background: transparent;
-      color: #cbd5e1;
-      text-align: left;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+.sidebar button:hover {
+  background:#2563eb;
+}
 
-    .menu button:hover {
-      background: #1f2937;
-      color: white;
-    }
+/* MAIN */
+.main {
+  margin-left:240px;
+  padding:20px;
+  width:100%;
+}
 
-    /* MAIN */
-    .main {
-      margin-left: 230px;
-      width: 100%;
-      padding: 20px;
-    }
+.topbar {
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
 
-    /* TOPBAR */
-    .topbar {
-      background: white;
-      padding: 15px 20px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
 
-    .balance {
-      font-weight: bold;
-      color: #2563eb;
-    }
+.card {
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
 
-    /* CARD GRID */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
+.section {display:none;}
 
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-    }
-
-    .section {
-      display: none;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    button.action {
-      padding: 10px;
-      background: #2563eb;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    button.action:hover {
-      background: #1e40af;
-    }
-
-  </style>
+</style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
-  <div class="logo">SMM PANEL</div>
+  <h2>SMM PANEL</h2>
 
-  <div class="menu">
-    <button onclick="show('home')">🏠 Dashboard</button>
-    <button onclick="show('services')">📦 Services</button>
-    <button onclick="show('order')">🛒 New Order</button>
-    <button onclick="show('history')">📜 Orders</button>
-    <button onclick="logout()">🚪 Logout</button>
-  </div>
+  <button onclick="show('home')">Dashboard</button>
+  <button onclick="show('services')">Services</button>
+  <button onclick="show('order')">New Order</button>
+  <button onclick="logout()">Logout</button>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
-  <!-- TOPBAR -->
   <div class="topbar">
-    <div>Welcome 👋</div>
-    <div class="balance">₹ <span id="balance">0</span></div>
+    <h3>Welcome 👋</h3>
+    <h3>₹ <span id="balance">0</span></h3>
   </div>
 
-  <!-- DASHBOARD -->
   <div id="home" class="section">
     <div class="grid">
-      <div class="card">
-        <h3>Total Orders</h3>
-        <p>0</p>
-      </div>
-      <div class="card">
-        <h3>Pending Orders</h3>
-        <p>0</p>
-      </div>
-      <div class="card">
-        <h3>Completed</h3>
-        <p>0</p>
-      </div>
+      <div class="card">Total Orders: 0</div>
+      <div class="card">Pending: 0</div>
+      <div class="card">Completed: 0</div>
     </div>
   </div>
 
-  <!-- SERVICES -->
   <div id="services" class="section">
     <div class="card">
-      <h3>Services</h3>
-      <p>Instagram Followers - ₹100</p>
-      <p>Instagram Likes - ₹50</p>
+      Instagram Followers - ₹100<br>
+      Instagram Likes - ₹50
     </div>
   </div>
 
-  <!-- ORDER -->
   <div id="order" class="section">
     <div class="card">
-      <h3>Place Order</h3>
-      <input placeholder="Enter Link">
-      <input placeholder="Quantity">
-      <button class="action">Submit Order</button>
-    </div>
-  </div>
-
-  <!-- HISTORY -->
-  <div id="history" class="section">
-    <div class="card">
-      <h3>Order History</h3>
-      <p>No data</p>
+      <input placeholder="Enter link"><br><br>
+      <input placeholder="Quantity"><br><br>
+      <button>Place Order</button>
     </div>
   </div>
 
@@ -212,14 +136,14 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// SECTION SWITCH
+// section
 window.show = function(id){
   document.querySelectorAll(".section").forEach(s=>s.style.display="none");
   document.getElementById(id).style.display="block";
 }
 show("home");
 
-// USER DATA
+// user
 onAuthStateChanged(auth, async(user)=>{
   if(user){
     let ref = doc(db,"users",user.uid);
@@ -236,9 +160,11 @@ onAuthStateChanged(auth, async(user)=>{
   }
 });
 
-// LOGOUT
+// logout
 window.logout = function(){
-  signOut(auth).then(()=> window.location.href="login.html");
+  signOut(auth).then(()=>{
+    window.location.href="index.html";
+  });
 }
 
 </script>
