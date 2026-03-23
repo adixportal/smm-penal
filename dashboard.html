@@ -4,90 +4,75 @@
 <title>SMM Panel</title>
 
 <style>
-body {
+body{
   margin:0;
   font-family:'Segoe UI';
   display:flex;
-  background:#f1f5f9;
+  background:#f4f7fb;
 }
 
 /* SIDEBAR */
-.sidebar {
-  width:240px;
+.sidebar{
+  width:250px;
   background:#111827;
   color:white;
   height:100vh;
   padding:20px;
-  position:fixed;
 }
 
-.sidebar h2 {
+.sidebar h2{
   text-align:center;
+  margin-bottom:30px;
 }
 
-.sidebar button {
+.menu button{
   width:100%;
   padding:12px;
-  margin:10px 0;
-  border:none;
+  margin:8px 0;
   background:#1f2937;
+  border:none;
   color:white;
-  border-radius:6px;
+  border-radius:8px;
   cursor:pointer;
 }
 
-.sidebar button:hover {
+.menu button:hover{
   background:#2563eb;
 }
 
 /* MAIN */
-.main {
-  margin-left:240px;
+.main{
+  flex:1;
   padding:20px;
-  width:100%;
 }
 
-/* TOPBAR */
-.topbar {
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
   background:white;
   padding:15px;
   border-radius:10px;
-  display:flex;
-  justify-content:space-between;
   margin-bottom:20px;
 }
 
-/* GRID */
-.grid {
+/* CARDS */
+.cards{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:20px;
 }
 
-.card {
+.card{
   background:white;
   padding:20px;
-  border-radius:10px;
+  border-radius:12px;
   box-shadow:0 5px 15px rgba(0,0,0,0.08);
+  font-weight:500;
 }
 
-.section {display:none;}
-
-input {
-  width:100%;
-  padding:10px;
-  margin:10px 0;
-  border-radius:6px;
-  border:1px solid #ccc;
-}
-
-button.action {
-  padding:10px;
-  background:#2563eb;
-  color:white;
-  border:none;
-  border-radius:6px;
-}
+/* SECTIONS */
+.section{display:none;}
 
 </style>
 </head>
@@ -97,29 +82,29 @@ button.action {
 <div class="sidebar">
   <h2>SMM PANEL</h2>
 
-  <button onclick="show('home')">Dashboard</button>
-  <button onclick="show('services')">Services</button>
-  <button onclick="show('order')">New Order</button>
-  <button onclick="logout()">Logout</button>
+  <div class="menu">
+    <button onclick="show('home')">Dashboard</button>
+    <button onclick="show('services')">Services</button>
+    <button onclick="show('order')">New Order</button>
+    <button onclick="logout()">Logout</button>
+  </div>
 </div>
 
 <div class="main">
 
-  <div class="topbar">
-    <h3>Welcome 👋</h3>
-    <h3>Balance: ₹<span id="balance">0</span></h3>
+  <div class="header">
+    <div>Welcome 👋</div>
+    <div>Balance: ₹<span id="balance">0</span></div>
   </div>
 
-  <!-- DASHBOARD -->
   <div id="home" class="section">
-    <div class="grid">
+    <div class="cards">
       <div class="card">Total Orders: 0</div>
-      <div class="card">Pending Orders: 0</div>
-      <div class="card">Completed Orders: 0</div>
+      <div class="card">Pending: 0</div>
+      <div class="card">Completed: 0</div>
     </div>
   </div>
 
-  <!-- SERVICES -->
   <div id="services" class="section">
     <div class="card">
       Instagram Followers - ₹100<br><br>
@@ -127,13 +112,11 @@ button.action {
     </div>
   </div>
 
-  <!-- ORDER -->
   <div id="order" class="section">
     <div class="card">
-      <h3>Place Order</h3>
-      <input placeholder="Enter link">
-      <input placeholder="Quantity">
-      <button class="action">Submit</button>
+      <input placeholder="Link"><br><br>
+      <input placeholder="Quantity"><br><br>
+      <button>Place Order</button>
     </div>
   </div>
 
@@ -145,9 +128,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/fireba
 import { getAuth, onAuthStateChanged, signOut } 
 from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-import { getFirestore, doc, getDoc, setDoc } 
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyDpA9ZGfWyWVsY1PsYL19dOf_CZsjPDUoM",
   authDomain: "smm-penal-6a0c0.firebaseapp.com",
@@ -156,28 +136,17 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
 
-// section switch
+// section
 window.show = function(id){
   document.querySelectorAll(".section").forEach(s=>s.style.display="none");
   document.getElementById(id).style.display="block";
 }
 show("home");
 
-// user
-onAuthStateChanged(auth, async(user)=>{
-  if(user){
-    let ref = doc(db,"users",user.uid);
-    let snap = await getDoc(ref);
-
-    if(snap.exists()){
-      document.getElementById("balance").innerText = snap.data().balance;
-    }else{
-      await setDoc(ref,{email:user.email,balance:1000});
-      document.getElementById("balance").innerText = 1000;
-    }
-  }else{
+// auth check
+onAuthStateChanged(auth,(user)=>{
+  if(!user){
     window.location.href="index.html";
   }
 });
