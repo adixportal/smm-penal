@@ -5,69 +5,69 @@
 
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      height: 100vh;
-      background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-    }
-
-    .left {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      flex-direction: column;
-    }
-
-    .left h1 {
-      font-size: 42px;
-      margin: 0;
-    }
-
-    .right {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #ffffff;
+      margin:0;
+      font-family:'Segoe UI';
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background: linear-gradient(135deg,#0f172a,#1e293b);
     }
 
     .box {
-      width: 320px;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      text-align: center;
+      width:350px;
+      padding:30px;
+      border-radius:15px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(15px);
+      box-shadow:0 10px 40px rgba(0,0,0,0.5);
+      text-align:center;
+      color:white;
+    }
+
+    h2 {
+      margin-bottom:20px;
     }
 
     input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+      width:100%;
+      padding:12px;
+      margin:10px 0;
+      border-radius:8px;
+      border:none;
+      outline:none;
+      background:rgba(255,255,255,0.1);
+      color:white;
+    }
+
+    input::placeholder {
+      color:#ccc;
     }
 
     button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 8px;
-      background: #2563eb;
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
+      width:100%;
+      padding:12px;
+      margin-top:10px;
+      border:none;
+      border-radius:8px;
+      background:#2563eb;
+      color:white;
+      cursor:pointer;
+      font-size:15px;
     }
 
     button:hover {
-      background: #1e40af;
+      background:#1e40af;
     }
 
     .signup {
-      background: #16a34a;
+      background:#16a34a;
+    }
+
+    .logo {
+      font-size:22px;
+      margin-bottom:10px;
+      font-weight:bold;
     }
 
   </style>
@@ -75,23 +75,18 @@
 
 <body>
 
-<div class="left">
-  <h1>SMM PANEL 🚀</h1>
-  <p>Grow faster. Earn smarter.</p>
-</div>
+<div class="box">
 
-<div class="right">
-  <div class="box">
+  <div class="logo">🚀 SMM PANEL</div>
 
-    <h2>Login</h2>
+  <h2>Welcome Back</h2>
 
-    <input id="email" placeholder="Email">
-    <input id="password" type="password" placeholder="Password">
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
 
-    <button onclick="login()">Login</button>
-    <button class="signup" onclick="signup()">Signup</button>
+  <button onclick="login()">Login</button>
+  <button class="signup" onclick="signup()">Signup</button>
 
-  </div>
 </div>
 
 <script type="module" src="firebase.js"></script>
