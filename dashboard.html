@@ -1,200 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SMM Panel Dashboard</title>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      background: #f4f6f9;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 220px;
-      height: 100vh;
-      background: #1e1e2f;
-      color: white;
-      padding: 20px;
-    }
-
-    .sidebar h2 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .sidebar button {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: none;
-      background: #2a2a40;
-      color: white;
-      cursor: pointer;
-      border-radius: 8px;
-      transition: 0.3s;
-    }
-
-    .sidebar button:hover {
-      background: #4a4a6a;
-    }
-
-    /* Main */
-    .main {
-      flex: 1;
-      padding: 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-    }
-
-    h2 {
-      margin-top: 0;
-    }
-
-    input {
-      padding: 10px;
-      margin: 5px 0;
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    button.action {
-      background: #2a5298;
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button.action:hover {
-      background: #1e3c72;
-    }
-
-    .section {
-      display: none;
-    }
-
-    .service-box {
-      padding: 10px;
-      border: 1px solid #ddd;
-      margin: 10px 0;
-      border-radius: 8px;
-    }
-  </style>
+  <title>Dashboard</title>
 </head>
 
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar">
-  <h2>SMM Panel</h2>
+<h2>Welcome to Dashboard 🎉</h2>
 
-  <button onclick="showSection('home')">🏠 Dashboard</button>
-  <button onclick="showSection('services')">📦 Services</button>
-  <button onclick="showSection('order')">🛒 Order</button>
-  <button onclick="showSection('history')">📜 History</button>
-</div>
+<button onclick="logout()">Logout</button>
 
-<!-- Main -->
-<div class="main">
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+import { getAuth, signOut, onAuthStateChanged } 
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-  <!-- Dashboard -->
-  <div id="home" class="section">
-    <div class="card">
-      <h2>Welcome 👋</h2>
-      <h3>Balance: ₹<span id="balance">0</span></h3>
-    </div>
-  </div>
+const firebaseConfig = {
+  apiKey: "AIzaSyDpA9ZGfWyWVsY1PsYL19dOf_CZsjPDUoM",
+  authDomain: "smm-penal-6a0c0.firebaseapp.com",
+  projectId: "smm-penal-6a0c0",
+};
 
-  <!-- Services -->
-  <div id="services" class="section">
-    <div class="card">
-      <h2>Services</h2>
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-      <div class="service-box">
-        Instagram Followers - ₹100  
-        <button class="action" onclick="selectService('Followers',100)">Select</button>
-      </div>
-
-      <div class="service-box">
-        Instagram Likes - ₹50  
-        <button class="action" onclick="selectService('Likes',50)">Select</button>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Order -->
-  <div id="order" class="section">
-    <div class="card">
-      <h2>Place Order</h2>
-
-      <p>Service: <b id="selectedService">None</b></p>
-
-      <input type="text" id="link" placeholder="Enter Link">
-      <input type="number" id="quantity" placeholder="Quantity">
-
-      <button class="action" onclick="placeOrder()">Order</button>
-    </div>
-  </div>
-
-  <!-- History -->
-  <div id="history" class="section">
-    <div class="card">
-      <h2>Order History</h2>
-      <ul id="historyList"></ul>
-    </div>
-  </div>
-
-</div>
-
-<script>
-let selectedPrice = 0;
-let selectedName = "";
-let balance = 1000;
-
-// Section switch
-function showSection(id) {
-  document.querySelectorAll(".section").forEach(sec => sec.style.display = "none");
-  document.getElementById(id).style.display = "block";
-}
-
-showSection("home");
-
-// Select service
-function selectService(name, price) {
-  selectedName = name;
-  selectedPrice = price;
-  document.getElementById("selectedService").innerText = name;
-}
-
-// Order system
-function placeOrder() {
-  let qty = document.getElementById("quantity").value;
-  let total = qty * selectedPrice;
-
-  if (balance >= total) {
-    balance -= total;
-    document.getElementById("balance").innerText = balance;
-
-    let li = document.createElement("li");
-    li.innerText = selectedName + " - " + qty + " ✅";
-    document.getElementById("historyList").appendChild(li);
-
-    alert("Order Placed 🚀");
-  } else {
-    alert("Low Balance ❌");
+// Check login
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "login.html";
   }
+});
+
+// Logout
+window.logout = function() {
+  signOut(auth).then(() => {
+    window.location.href = "login.html";
+  });
 }
 </script>
 
