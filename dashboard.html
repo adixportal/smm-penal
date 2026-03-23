@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SMM Panel Dashboard</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+    }
+
+    nav {
+      background: black;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav button {
+      margin: 5px;
+      padding: 10px;
+      color: white;
+      background: gray;
+      border: none;
+      cursor: pointer;
+    }
+
+    .section {
+      display: none;
+      padding: 20px;
+    }
+
+    input {
+      padding: 8px;
+      margin: 5px;
+      display: block;
+    }
+
+    button {
+      padding: 8px 15px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <button onclick="showSection('home')">Dashboard</button>
+  <button onclick="showSection('services')">Services</button>
+  <button onclick="showSection('order')">Order</button>
+  <button onclick="showSection('history')">History</button>
+</nav>
+
+<!-- DASHBOARD -->
+<div id="home" class="section">
+  <h2>Welcome 👋</h2>
+  <h3>Balance: ₹<span id="balance">0</span></h3>
+</div>
+
+<!-- SERVICES -->
+<div id="services" class="section">
+  <h2>Services</h2>
+
+  <div>
+    <p>Instagram Followers - ₹100</p>
+    <button onclick="selectService('Instagram Followers',100)">Select</button>
+  </div>
+
+  <div>
+    <p>Instagram Likes - ₹50</p>
+    <button onclick="selectService('Instagram Likes',50)">Select</button>
+  </div>
+
+</div>
+
+<!-- ORDER -->
+<div id="order" class="section">
+  <h2>Place Order</h2>
+
+  <p>Selected Service: <span id="selectedService">None</span></p>
+
+  <input type="text" id="link" placeholder="Enter Link">
+  <input type="number" id="quantity" placeholder="Enter Quantity">
+
+  <button onclick="placeOrder()">Place Order</button>
+</div>
+
+<!-- HISTORY -->
+<div id="history" class="section">
+  <h2>Order History</h2>
+  <ul id="historyList"></ul>
+</div>
+
+<script>
+
+let selectedPrice = 0;
+let selectedName = "";
+let balance = 1000; // dummy balance
+
+function showSection(id) {
+  document.querySelectorAll(".section").forEach(sec => sec.style.display = "none");
+  document.getElementById(id).style.display = "block";
+}
+
+showSection("home");
+
+// Service select
+function selectService(name, price) {
+  selectedName = name;
+  selectedPrice = price;
+  document.getElementById("selectedService").innerText = name;
+}
+
+// Place order
+function placeOrder() {
+  let quantity = document.getElementById("quantity").value;
+  let total = quantity * selectedPrice;
+
+  if (balance >= total) {
+    balance -= total;
+    document.getElementById("balance").innerText = balance;
+
+    let li = document.createElement("li");
+    li.innerText = selectedName + " - " + quantity + " ✅";
+    document.getElementById("historyList").appendChild(li);
+
+    alert("Order Placed ✅");
+  } else {
+    alert("Insufficient Balance ❌");
+  }
+}
+
+</script>
+
+</body>
+</html>
