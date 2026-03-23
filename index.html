@@ -1,92 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SMM Panel</title>
+<title>SMM Panel</title>
 
-  <style>
-    body {
-      margin:0;
-      font-family:'Segoe UI';
-      height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background: linear-gradient(135deg,#0f172a,#1e293b);
-    }
+<style>
+body {
+  margin:0;
+  font-family:'Segoe UI';
+  height:100vh;
+  display:flex;
+}
 
-    .box {
-      width:350px;
-      padding:30px;
-      border-radius:15px;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(15px);
-      box-shadow:0 10px 40px rgba(0,0,0,0.5);
-      text-align:center;
-      color:white;
-    }
+/* LEFT SIDE */
+.left {
+  flex:1;
+  background: linear-gradient(135deg,#1e3a8a,#2563eb);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+}
 
-    h2 {
-      margin-bottom:20px;
-    }
+.left h1 {
+  font-size:42px;
+  margin:0;
+}
 
-    input {
-      width:100%;
-      padding:12px;
-      margin:10px 0;
-      border-radius:8px;
-      border:none;
-      outline:none;
-      background:rgba(255,255,255,0.1);
-      color:white;
-    }
+.left p {
+  margin-top:10px;
+  opacity:0.8;
+}
 
-    input::placeholder {
-      color:#ccc;
-    }
+/* RIGHT SIDE */
+.right {
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#f8fafc;
+}
 
-    button {
-      width:100%;
-      padding:12px;
-      margin-top:10px;
-      border:none;
-      border-radius:8px;
-      background:#2563eb;
-      color:white;
-      cursor:pointer;
-      font-size:15px;
-    }
+.box {
+  width:340px;
+  padding:30px;
+  background:white;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
 
-    button:hover {
-      background:#1e40af;
-    }
+.box h2 {
+  margin-bottom:20px;
+}
 
-    .signup {
-      background:#16a34a;
-    }
+input {
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:8px;
+  border:1px solid #ddd;
+}
 
-    .logo {
-      font-size:22px;
-      margin-bottom:10px;
-      font-weight:bold;
-    }
+button {
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:8px;
+  background:#2563eb;
+  color:white;
+  cursor:pointer;
+}
 
-  </style>
+button:hover {
+  background:#1e40af;
+}
+
+.signup {
+  background:#16a34a;
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="left">
+  <h1>🚀 SMM PANEL</h1>
+  <p>Boost your social media growth instantly</p>
+</div>
 
-  <div class="logo">🚀 SMM PANEL</div>
+<div class="right">
+  <div class="box">
 
-  <h2>Welcome Back</h2>
+    <h2>Login</h2>
 
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
+    <input id="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
 
-  <button onclick="login()">Login</button>
-  <button class="signup" onclick="signup()">Signup</button>
+    <button onclick="login()">Login</button>
+    <button class="signup" onclick="signup()">Signup</button>
 
+  </div>
 </div>
 
 <script type="module" src="firebase.js"></script>
