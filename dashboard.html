@@ -1,82 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SMM Panel</title>
+<title>SMM Panel</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI';
-      display: flex;
-      background: #f4f6f9;
-    }
+<style>
+body {
+  margin:0;
+  font-family:Arial;
+  display:flex;
+  background:#f5f6fa;
+}
 
-    .sidebar {
-      width: 220px;
-      background: #1e1e2f;
-      color: white;
-      height: 100vh;
-      padding: 20px;
-    }
+/* Sidebar */
+.sidebar {
+  width:240px;
+  background:#2f3640;
+  color:white;
+  height:100vh;
+  padding:20px;
+}
 
-    .sidebar h2 {
-      text-align: center;
-    }
+.sidebar h2 {
+  text-align:center;
+}
 
-    .sidebar button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: none;
-      background: #2a2a40;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+.sidebar button {
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:none;
+  background:#353b48;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+}
 
-    .sidebar button:hover {
-      background: #4a4a6a;
-    }
+.sidebar button:hover {
+  background:#40739e;
+}
 
-    .main {
-      flex: 1;
-      padding: 20px;
-    }
+/* Main */
+.main {
+  flex:1;
+  padding:20px;
+}
 
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
+.topbar {
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+  display:flex;
+  justify-content:space-between;
+}
 
-    .section {
-      display: none;
-    }
-  </style>
+.card {
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  margin-bottom:20px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.section {
+  display:none;
+}
+</style>
+
 </head>
 
 <body>
 
+<!-- Sidebar -->
 <div class="sidebar">
   <h2>SMM Panel</h2>
 
-  <button onclick="showSection('home')">Dashboard</button>
-  <button onclick="showSection('services')">Services</button>
-  <button onclick="showSection('order')">Order</button>
-  <button onclick="logout()">Logout</button>
+  <button onclick="show('home')">🏠 Dashboard</button>
+  <button onclick="show('services')">📦 Services</button>
+  <button onclick="show('order')">🛒 New Order</button>
+  <button onclick="show('history')">📜 Orders</button>
+  <button onclick="logout()">🚪 Logout</button>
 </div>
 
+<!-- Main -->
 <div class="main">
 
+  <div class="topbar">
+    <h3>Welcome User 👋</h3>
+    <h3>Balance: ₹<span id="balance">0</span></h3>
+  </div>
+
+  <!-- Dashboard -->
   <div id="home" class="section">
     <div class="card">
-      <h2>Welcome 🎉</h2>
-      <h3>Balance: ₹<span id="balance">Loading...</span></h3>
+      <h2>Dashboard Overview</h2>
+      <p>Total Orders: 0</p>
+      <p>Pending Orders: 0</p>
     </div>
   </div>
 
+  <!-- Services -->
   <div id="services" class="section">
     <div class="card">
       <h2>Services</h2>
@@ -85,12 +108,21 @@
     </div>
   </div>
 
+  <!-- Order -->
   <div id="order" class="section">
     <div class="card">
-      <h2>Order</h2>
-      <input placeholder="Enter link"><br><br>
-      <input placeholder="Quantity"><br><br>
-      <button>Place Order</button>
+      <h2>Place Order</h2>
+      <input id="link" placeholder="Enter link"><br><br>
+      <input id="qty" placeholder="Quantity"><br><br>
+      <button>Submit Order</button>
+    </div>
+  </div>
+
+  <!-- History -->
+  <div id="history" class="section">
+    <div class="card">
+      <h2>Order History</h2>
+      <p>No orders yet</p>
     </div>
   </div>
 
@@ -116,37 +148,34 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 // Section switch
-window.showSection = function(id) {
-  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
-  document.getElementById(id).style.display = "block";
+window.show = function(id){
+  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+  document.getElementById(id).style.display="block";
 }
 
-showSection("home");
+show("home");
 
-// Firebase user check
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    const ref = doc(db, "users", user.uid);
-    const snap = await getDoc(ref);
+// Firebase user
+onAuthStateChanged(auth, async(user)=>{
+  if(user){
+    let ref = doc(db,"users",user.uid);
+    let snap = await getDoc(ref);
 
-    if (snap.exists()) {
+    if(snap.exists()){
       document.getElementById("balance").innerText = snap.data().balance;
-    } else {
-      await setDoc(ref, {
-        email: user.email,
-        balance: 1000
-      });
+    }else{
+      await setDoc(ref,{email:user.email,balance:1000});
       document.getElementById("balance").innerText = 1000;
     }
-  } else {
-    window.location.href = "login.html";
+  }else{
+    window.location.href="login.html";
   }
 });
 
 // Logout
-window.logout = function() {
-  signOut(auth).then(() => {
-    window.location.href = "login.html";
+window.logout = function(){
+  signOut(auth).then(()=>{
+    window.location.href="login.html";
   });
 }
 
